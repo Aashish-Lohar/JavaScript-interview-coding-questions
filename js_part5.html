@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <h1 class="text-3xl text-center py-4">
+      Event bubbling, capturing, propogation, prevent default
+    </h1>
+    <h2 class="text-2xl text-center py-4">see console for results</h2>
+    <div class="flex justify-center flex-wrap w-[95%] mx-auto">
+      <div class="bubbling_div w-[20%] p-6 border-2 flex">
+        div
+        <button class="bubbling_btn p-2 border-2">Click me for bubbling</button>
+        <ol></ol>
+      </div>
+      <div class="capturing_div w-[20%] p-6 border-2 flex">
+        div
+        <button class="capturing_btn p-2 border-2">
+          Click me for capturing
+        </button>
+        <ol></ol>
+      </div>
+      <div class="propogation_div w-[20%] p-6 border-2 flex">
+        div
+        <button class="propogation_btn p-2 border-2">
+          Click me for propogation
+        </button>
+        <ol></ol>
+      </div>
+      <div class="prevent_default_div w-[20%] p-6 border-2 flex text-center">
+        <a href="/home" class="prevent underline">home</a>
+      </div>
+      <div class="debouncing w-[20%] p-6 border-2 flex">
+        <input
+          type="text"
+          name=""
+          placeholder="debouncing"
+          class="border-2 p-0"
+          id=""
+          onkeyup="betterPerformance()"
+        />
+      </div>
+      <div class="throttling w-[20%] p-6 border-2 flex">
+        <input
+          type="text"
+          name=""
+          placeholder="throttling"
+          class="border-2 p-0 w-[60%]"
+          id=""
+        />
+        <button onclick="callToApi()" id="throttling_btn" class=" w-[40%]  hover:bg-slate-200 border-2">Call Api</button>
+      </div>
+    </div>
+    </div>
+
+    <script>
+      let bubbling_div = document.querySelector(".bubbling_div");
+      let bubbling_btn = document.querySelector(".bubbling_btn");
+      let capturing_div = document.querySelector(".capturing_div");
+      let capturing_btn = document.querySelector(".capturing_btn");
+      let propogation_div = document.querySelector(".propogation_div");
+      let propogation_btn = document.querySelector(".propogation_btn");
+      let a = document.querySelector("a");
+
+      // bubbling
+      bubbling_div.addEventListener("click", () => {
+        console.log("div");
+      });
+      bubbling_btn.addEventListener("click", (el) => {
+        console.log("button");
+      });
+
+      // capturing
+      capturing_div.addEventListener(
+        "click",
+        () => {
+          console.log("div");
+        },
+        true
+      );
+      capturing_btn.addEventListener(
+        "click",
+        () => {
+          console.log("button");
+        },
+        true
+      );
+
+      // propogation
+      propogation_div.addEventListener("click", () => {
+        console.log("div");
+      });
+      propogation_btn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        console.log("button");
+      });
+
+      //preventDefault()
+      a.addEventListener("click", (event) => {
+        event.preventDefault();
+        console.log("home");
+      });
+
+
+      //debouncing
+      counter = 0;
+      const getData = () => {
+        counter += 1;
+        console.log(counter);
+      };
+
+      const debounce = (call, d) => {
+        let timer;
+        return function (...args) {
+          if (timer) {
+            clearTimeout(timer);
+          }
+          timer = setTimeout(() => {
+            call();
+          }, d);
+        };
+      };
+      const betterPerformance = debounce(getData,1000)
+
+
+    //   throttling 
+      const myThrottle = (fn, d)=>{
+        return function(...args){
+            document.getElementById('throttling_btn').disabled = true
+            document.getElementById('throttling_btn').classList.add('bg-slate-200')
+            setTimeout(()=>{
+                fn()
+            },d)
+        }
+      }
+
+      const callToApi = myThrottle(()=>{
+        document.getElementById('throttling_btn').disabled = false
+        document.getElementById('throttling_btn').classList.remove('bg-slate-200')
+        console.log('user clicked');
+      },2000)
+
+    </script>
+  </body>
+</html>
