@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>Learning Global execution and code execution, how memory is allocated in global execution</h2>
+    <button id="myBtn">Click me</button>
+
+    <script>
+        var a = 10 // can accessed by window.a
+        let b = 5 // can't be accessed by window.b
+////////////////////////////////////////////////////////
+        console.log(y);
+        test1()
+        test2()
+        var y = 5
+
+        function test1(){
+            var x=1
+            console.log('test1',x);
+        }
+        function test2(){
+            var x=2
+            console.log('test2',x);
+        }
+        ////////////////////////////////////////////////////////////////
+
+        {
+            var x = 100
+            let b=69
+        }
+
+        console.log('x',x);
+        //////////////////////////////////////////////////////////////////
+        // 2. Attach eventlistener to button using closure
+        function attachEventListeners(){
+            let count = 0;
+            document.getElementById('myBtn').addEventListener('click',()=>{
+                console.log('button clicked',++count);
+            })
+        }
+
+        attachEventListeners()
+
+    </script>
+    
+</body>
+</html>

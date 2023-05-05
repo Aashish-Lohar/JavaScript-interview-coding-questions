@@ -109,6 +109,8 @@ const numbers = [1, 2];
 
 // 5. Closures : Closures are a feature of JavaScript that allows a function to access variables
 //  in its outer lexical environment, even after the outer function has returned.
+// In other words, a function with reference of its outer environment together forms a closure.
+// Closure is combination of a function and its lexical scope bundled together
 
 // const addTo = (passed)=>{
 //     const add = (inner)=>{
