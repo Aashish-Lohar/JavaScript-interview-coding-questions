@@ -11,6 +11,19 @@
     <h2>Learning Global execution and code execution, how memory is allocated in global execution</h2>
     <button id="myBtn">Click me</button>
 
+    <h2>Event delegation</h2>
+    <form id="form">
+        <label for="name">Name
+            <input type="text" name="" id="name" data-uppercase>
+        </label>
+        <label for="pan">Pan
+            <input type="text" name="" id="pan">
+        </label>
+        <label for="mobile">Mobile
+            <input type="number" name="" id="mobile">
+        </label>
+    </form>
+
     <script>
         var a = 10 // can accessed by window.a
         let b = 5 // can't be accessed by window.b
@@ -46,6 +59,28 @@
         }
 
         attachEventListeners()
+
+
+        ///////////////////////////////////////////////////////
+        // event delegation: Event delegation is a technique used in JavaScript to handle events efficiently on a large number of elements. It works by attaching an event listener to a parent element that will handle events triggered by its child elements.
+
+        // Instead of attaching an event listener to each child element individually, the event listener is attached to the parent element, and when an event occurs on a child element, the event "bubbles up" to the parent element, where the event listener can handle it.
+
+
+        // Benefits of event delegation:
+        // improves memory space
+        // mitigates risk of performance bottle neck
+        // Dom manipulation
+        // when elements get added dynamically, the process of adding events is slow
+        // Limitations:
+        // All the events are not bubbled up, some events like blur, focus are not bubbled up
+        // if e.stopPropogation is used in child, then events are not bubbled up
+        
+        document.querySelector('#form').addEventListener('keyup',(e)=>{
+            if(e.target.dataset.uppercase != undefined){
+                e.target.value = e.target.value.toUpperCase()
+            }
+        })
 
     </script>
     
